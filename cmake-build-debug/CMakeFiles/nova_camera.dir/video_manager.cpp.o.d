@@ -1,7 +1,7 @@
-CMakeFiles/nova_camera.dir/nova_camera.cpp.o: \
- /home/raulcto/CLionProjects/NovaEngineV2/nova_camera.cpp \
+CMakeFiles/nova_camera.dir/video_manager.cpp.o: \
+ /home/raulcto/CLionProjects/NovaEngineV2/video_manager.cpp \
  /usr/include/stdc-predef.h \
- /home/raulcto/CLionProjects/NovaEngineV2/nova_camera.h \
+ /home/raulcto/CLionProjects/NovaEngineV2/video_manager.h \
  /home/raulcto/CLionProjects/NovaEngineV2/video_config.h \
  /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
@@ -135,7 +135,6 @@ CMakeFiles/nova_camera.dir/nova_camera.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/raulcto/CLionProjects/NovaEngineV2/video_manager.h \
  /home/raulcto/CLionProjects/NovaEngineV2/pipeline_builder.h \
  /usr/include/gstreamer-1.0/gst/gst.h /usr/include/glib-2.0/glib.h \
  /usr/include/glib-2.0/glib/galloca.h /usr/include/glib-2.0/glib/gtypes.h \
@@ -375,7 +374,6 @@ CMakeFiles/nova_camera.dir/nova_camera.cpp.o: \
  /usr/include/c++/11/backward/auto_ptr.h \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
  /usr/include/c++/11/pstl/execution_defs.h \
- /home/raulcto/CLionProjects/NovaEngineV2/heartbeat_manager.h \
  /home/raulcto/CLionProjects/NovaEngineV2/gpu_detector.h \
  /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
  /usr/include/c++/11/ios /usr/include/c++/11/bits/ios_base.h \

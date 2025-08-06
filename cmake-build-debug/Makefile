@@ -85,51 +85,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug//CMakeFiles/progress.marks
@@ -174,6 +129,78 @@ nova_camera/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/build
 .PHONY : nova_camera/fast
 
+gpu_detector.o: gpu_detector.cpp.o
+.PHONY : gpu_detector.o
+
+# target to build an object file
+gpu_detector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/gpu_detector.cpp.o
+.PHONY : gpu_detector.cpp.o
+
+gpu_detector.i: gpu_detector.cpp.i
+.PHONY : gpu_detector.i
+
+# target to preprocess a source file
+gpu_detector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/gpu_detector.cpp.i
+.PHONY : gpu_detector.cpp.i
+
+gpu_detector.s: gpu_detector.cpp.s
+.PHONY : gpu_detector.s
+
+# target to generate assembly for a file
+gpu_detector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/gpu_detector.cpp.s
+.PHONY : gpu_detector.cpp.s
+
+heartbeat_manager.o: heartbeat_manager.cpp.o
+.PHONY : heartbeat_manager.o
+
+# target to build an object file
+heartbeat_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/heartbeat_manager.cpp.o
+.PHONY : heartbeat_manager.cpp.o
+
+heartbeat_manager.i: heartbeat_manager.cpp.i
+.PHONY : heartbeat_manager.i
+
+# target to preprocess a source file
+heartbeat_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/heartbeat_manager.cpp.i
+.PHONY : heartbeat_manager.cpp.i
+
+heartbeat_manager.s: heartbeat_manager.cpp.s
+.PHONY : heartbeat_manager.s
+
+# target to generate assembly for a file
+heartbeat_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/heartbeat_manager.cpp.s
+.PHONY : heartbeat_manager.cpp.s
+
+main.o: main.cpp.o
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 nova_camera.o: nova_camera.cpp.o
 .PHONY : nova_camera.o
 
@@ -198,6 +225,54 @@ nova_camera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/nova_camera.cpp.s
 .PHONY : nova_camera.cpp.s
 
+pipeline_builder.o: pipeline_builder.cpp.o
+.PHONY : pipeline_builder.o
+
+# target to build an object file
+pipeline_builder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/pipeline_builder.cpp.o
+.PHONY : pipeline_builder.cpp.o
+
+pipeline_builder.i: pipeline_builder.cpp.i
+.PHONY : pipeline_builder.i
+
+# target to preprocess a source file
+pipeline_builder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/pipeline_builder.cpp.i
+.PHONY : pipeline_builder.cpp.i
+
+pipeline_builder.s: pipeline_builder.cpp.s
+.PHONY : pipeline_builder.s
+
+# target to generate assembly for a file
+pipeline_builder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/pipeline_builder.cpp.s
+.PHONY : pipeline_builder.cpp.s
+
+video_manager.o: video_manager.cpp.o
+.PHONY : video_manager.o
+
+# target to build an object file
+video_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/video_manager.cpp.o
+.PHONY : video_manager.cpp.o
+
+video_manager.i: video_manager.cpp.i
+.PHONY : video_manager.i
+
+# target to preprocess a source file
+video_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/video_manager.cpp.i
+.PHONY : video_manager.cpp.i
+
+video_manager.s: video_manager.cpp.s
+.PHONY : video_manager.s
+
+# target to generate assembly for a file
+video_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/video_manager.cpp.s
+.PHONY : video_manager.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -205,15 +280,26 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... nova_camera"
+	@echo "... gpu_detector.o"
+	@echo "... gpu_detector.i"
+	@echo "... gpu_detector.s"
+	@echo "... heartbeat_manager.o"
+	@echo "... heartbeat_manager.i"
+	@echo "... heartbeat_manager.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... nova_camera.o"
 	@echo "... nova_camera.i"
 	@echo "... nova_camera.s"
+	@echo "... pipeline_builder.o"
+	@echo "... pipeline_builder.i"
+	@echo "... pipeline_builder.s"
+	@echo "... video_manager.o"
+	@echo "... video_manager.i"
+	@echo "... video_manager.s"
 .PHONY : help
 
 
