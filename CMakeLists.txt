@@ -4,18 +4,23 @@ project(NovaEngineV2)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# GStreamer paketlerini bul
+# GStreamer paketleri
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GST REQUIRED gstreamer-1.0 gstreamer-base-1.0 gstreamer-video-1.0 gstreamer-rtp-1.0)
+pkg_check_modules(GST REQUIRED 
+    gstreamer-1.0
+    gstreamer-base-1.0
+    gstreamer-video-1.0
+    gstreamer-rtp-1.0
+    gstreamer-app-1.0
+)
 
-# OpenMP desteği
-find_package(OpenMP)
-if(OpenMP_CXX_FOUND)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-endif()
+# GStreamer optimize compiler flags
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native -mtune=native")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -funroll-loops -ftree-vectorize")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GSTREAMER_OPTIMIZE")
 
-# Executable oluştur
-add_executable(nova_camera 
+# Executable
+add_executable(nova_camera
     main.cpp
     nova_camera.cpp
     video_manager.cpp
@@ -24,22 +29,11 @@ add_executable(nova_camera
     heartbeat_manager.cpp
 )
 
-# Include dizinleri
+# Include directories
 target_include_directories(nova_camera PRIVATE ${GST_INCLUDE_DIRS})
 
-# Link kütüphaneleri
+# Link libraries
 target_link_libraries(nova_camera ${GST_LIBRARIES})
 
-# Compiler flags
-target_compile_options(nova_camera PRIVATE 
-    ${GST_CFLAGS_OTHER}
-    -march=native
-    -mtune=native
-    -O3
-    -ffast-math
-    -funroll-loops
-    -ftree-vectorize
-)
-
-# Linker flags
-target_link_options(nova_camera PRIVATE ${GST_LDFLAGS_OTHER})
+# GStreamer optimize link flags
+target_link_options(nova_camera PRIVATE ${GST_LDFLAGS})

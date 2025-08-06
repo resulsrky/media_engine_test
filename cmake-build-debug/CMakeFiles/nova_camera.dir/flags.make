@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/usr/include/gstreamer-1.0 -I/usr/include/orc-0.4 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
-CXX_FLAGS =  -fopenmp -pthread -march=native -mtune=native -O3 -ffast-math -funroll-loops -ftree-vectorize -std=gnu++17
+CXX_FLAGS =  -O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -D_GSTREAMER_OPTIMIZE -std=gnu++17
 

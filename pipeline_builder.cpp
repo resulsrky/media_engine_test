@@ -13,57 +13,69 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
                ",framerate=" + std::to_string(config.framerate) + "/1 ! ";
     pipeline += "jpegdec ! ";
     
-    // Video işleme
-    pipeline += "videoconvert ! ";
+    // Video işleme - daha iyi kalite
+    pipeline += "videoconvert ! videoscale ! ";
+    pipeline += "video/x-raw,format=I420 ! ";
     
     // Ayna efekti
     if (config.enable_mirror) {
         pipeline += "videoflip method=horizontal-flip ! ";
     }
     
-    // Tee for self-view and streaming
+    // Tee for self-view and streaming - optimize edilmiş
     pipeline += "tee name=t ! ";
-    pipeline += "queue max-size-buffers=2 ! autovideosink sync=false t. ! ";
-    pipeline += "queue max-size-buffers=4 ! "; // Daha stabil buffer
+    pipeline += "queue max-size-buffers=2 max-size-time=0 max-size-bytes=0 ! ";
+    pipeline += "videoconvert ! autovideosink sync=false t. ! ";
+    pipeline += "queue max-size-buffers=4 max-size-time=0 max-size-bytes=0 ! "; // Optimize buffer
     
-    // GPU encoding - stabil ayarlar
+    // GPU encoding - gelişmiş ayarlar
     if (config.enable_gpu) {
         std::string gpu_codec = GPUDetector::getBestGPUCodec();
         if (gpu_codec == "h264_nvenc") {
             pipeline += "nvenc preset=p7 bitrate=" + std::to_string(config.bitrate) + 
-                       " gop-size=" + std::to_string(config.gop_size) + " ! ";
+                       " gop-size=" + std::to_string(config.gop_size) + 
+                       " rc-mode=cbr " +
+                       "profile=high ! ";
         } else if (gpu_codec == "h264_vaapi") {
             pipeline += "vaapih264enc bitrate=" + std::to_string(config.bitrate) + 
-                       " keyframe-period=" + std::to_string(config.gop_size) + " ! ";
+                       " keyframe-period=" + std::to_string(config.gop_size) + 
+                       " tune=low-power ! ";
         } else if (gpu_codec == "h264_qsv") {
             pipeline += "qsvh264enc bitrate=" + std::to_string(config.bitrate) + 
-                       " gop-size=" + std::to_string(config.gop_size) + " ! ";
+                       " gop-size=" + std::to_string(config.gop_size) + 
+                       " low-power=true ! ";
         } else if (gpu_codec == "h264_v4l2") {
             pipeline += "v4l2h264enc bitrate=" + std::to_string(config.bitrate) + 
                        " gop-size=" + std::to_string(config.gop_size) + " ! ";
         } else {
-            // CPU encoding - stabil ayarlar
+            // CPU encoding - optimize edilmiş ayarlar
             pipeline += "x264enc tune=zerolatency speed-preset=ultrafast bitrate=" + std::to_string(config.bitrate) + 
-                       " key-int-max=" + std::to_string(config.gop_size) + " ! ";
+                       " key-int-max=" + std::to_string(config.gop_size) + 
+                       " bframes=0 ref=1 ! ";
         }
     } else {
-        // CPU encoding - stabil ayarlar
+        // CPU encoding - optimize edilmiş ayarlar
         pipeline += "x264enc tune=zerolatency speed-preset=ultrafast bitrate=" + std::to_string(config.bitrate) + 
-                   " key-int-max=" + std::to_string(config.gop_size) + " ! ";
+                   " key-int-max=" + std::to_string(config.gop_size) + 
+                   " bframes=0 ref=1 ! ";
     }
     
-    pipeline += "h264parse ! rtph264pay ! ";
-    pipeline += "udpsink host=" + remote_ip + " port=" + std::to_string(remote_port) + " sync=false";
+    // RTP ve network optimizasyonu
+    pipeline += "h264parse config-interval=1 ! ";
+    pipeline += "rtph264pay pt=96 config-interval=1 ! ";
+    pipeline += "udpsink host=" + remote_ip + " port=" + std::to_string(remote_port) + 
+               " sync=false async=false";
     
     return pipeline;
 }
 
 std::string PipelineBuilder::buildReceiverPipeline(int local_port) {
-    std::string pipeline = "udpsrc port=" + std::to_string(local_port) + " ! ";
-    pipeline += "application/x-rtp,media=video,clock-rate=90000,encoding-name=H264 ! ";
-    pipeline += "rtph264depay ! h264parse ! ";
+    std::string pipeline = "udpsrc port=" + std::to_string(local_port) + 
+                          " caps=\"application/x-rtp,media=video,clock-rate=90000,encoding-name=H264\" ! ";
+    pipeline += "rtph264depay ! ";
+    pipeline += "h264parse ! ";
     
-    // GPU decoding
+    // GPU decoding - gelişmiş
     if (config.enable_gpu) {
         std::string gpu_codec = GPUDetector::getBestGPUCodec();
         if (gpu_codec == "h264_vaapi") {
@@ -77,7 +89,10 @@ std::string PipelineBuilder::buildReceiverPipeline(int local_port) {
         pipeline += "avdec_h264 ! ";
     }
     
-    pipeline += "videoconvert ! xvimagesink sync=false";
+    // Video display optimizasyonu
+    pipeline += "videoconvert ! ";
+    pipeline += "queue max-size-buffers=2 max-size-time=0 max-size-bytes=0 ! ";
+    pipeline += "xvimagesink sync=false async=false";
     
     return pipeline;
 } 
