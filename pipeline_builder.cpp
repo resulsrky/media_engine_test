@@ -47,19 +47,8 @@ std::string PipelineBuilder::buildReceiverPipeline(int local_port) {
     pipeline += "rtph264depay ! ";
     pipeline += "h264parse ! ";
     
-    // GPU decoding - gelişmiş
-    if (config.enable_gpu) {
-        std::string gpu_codec = GPUDetector::getBestGPUCodec();
-        if (gpu_codec == "h264_vaapi") {
-            pipeline += "vaapidecode ! ";
-        } else if (gpu_codec == "h264_qsv") {
-            pipeline += "qsvh264dec ! ";
-        } else {
-            pipeline += "avdec_h264 ! "; // CPU decoding
-        }
-    } else {
-        pipeline += "avdec_h264 ! ";
-    }
+    // CPU decoding - basitleştirilmiş (GPU sorunları için)
+    pipeline += "avdec_h264 ! ";
     
     // Video display optimizasyonu
     pipeline += "videoconvert ! ";
