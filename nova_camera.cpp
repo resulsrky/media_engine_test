@@ -7,12 +7,12 @@ NovaCamera::NovaCamera(const std::string& local_ip, int local_port,
                        const std::string& remote_ip, int remote_port)
     : local_ip(local_ip), remote_ip(remote_ip), local_port(local_port), remote_port(remote_port) {
     
-    // Video kalite ayarları - hızlı hareket optimizasyonu
+    // Video kalite ayarları - stabil ayarlar
     config.width = 1280;
     config.height = 720;
     config.framerate = 30;
-    config.bitrate = 12000; // 12 Mbps - hızlı hareket için artırıldı
-    config.gop_size = 30; // Hızlı hareket için azaltıldı
+    config.bitrate = 6000; // 6 Mbps - daha stabil
+    config.gop_size = 60; // 2 saniye GOP - daha stabil
     config.enable_gpu = true;
     config.enable_mirror = true;
     
@@ -39,7 +39,7 @@ bool NovaCamera::start() {
     
     std::cout << "✓ Video streaming başlatıldı" << std::endl;
     std::cout << "✓ Heartbeat aktif" << std::endl;
-    std::cout << "✓ Hızlı hareket optimizasyonu aktif" << std::endl;
+    std::cout << "✓ Stabil ayarlar aktif" << std::endl;
     std::cout << "Çıkmak için ESC tuşuna basın..." << std::endl;
     
     return true;

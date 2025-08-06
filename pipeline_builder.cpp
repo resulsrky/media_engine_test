@@ -24,38 +24,32 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
     // Tee for self-view and streaming
     pipeline += "tee name=t ! ";
     pipeline += "queue max-size-buffers=2 ! autovideosink sync=false t. ! ";
-    pipeline += "queue max-size-buffers=8 ! "; // Buffer artırıldı
+    pipeline += "queue max-size-buffers=4 ! "; // Daha stabil buffer
     
-    // GPU encoding - hızlı hareket optimizasyonu
+    // GPU encoding - stabil ayarlar
     if (config.enable_gpu) {
         std::string gpu_codec = GPUDetector::getBestGPUCodec();
         if (gpu_codec == "h264_nvenc") {
             pipeline += "nvenc preset=p7 bitrate=" + std::to_string(config.bitrate) + 
-                       " gop-size=" + std::to_string(config.gop_size) + 
-                       " max-bitrate=" + std::to_string(config.bitrate * 2) + 
-                       " rc-mode=vbr_hq ! ";
+                       " gop-size=" + std::to_string(config.gop_size) + " ! ";
         } else if (gpu_codec == "h264_vaapi") {
             pipeline += "vaapih264enc bitrate=" + std::to_string(config.bitrate) + 
-                       " keyframe-period=" + std::to_string(config.gop_size) + 
-                       " tune=high-compression ! ";
+                       " keyframe-period=" + std::to_string(config.gop_size) + " ! ";
         } else if (gpu_codec == "h264_qsv") {
             pipeline += "qsvh264enc bitrate=" + std::to_string(config.bitrate) + 
-                       " gop-size=" + std::to_string(config.gop_size) + 
-                       " low-power=false ! ";
+                       " gop-size=" + std::to_string(config.gop_size) + " ! ";
         } else if (gpu_codec == "h264_v4l2") {
             pipeline += "v4l2h264enc bitrate=" + std::to_string(config.bitrate) + 
                        " gop-size=" + std::to_string(config.gop_size) + " ! ";
         } else {
-            // CPU encoding - hızlı hareket optimizasyonu
+            // CPU encoding - stabil ayarlar
             pipeline += "x264enc tune=zerolatency speed-preset=ultrafast bitrate=" + std::to_string(config.bitrate) + 
-                       " key-int-max=" + std::to_string(config.gop_size) + 
-                       " bframes=0 ref=1 ! ";
+                       " key-int-max=" + std::to_string(config.gop_size) + " ! ";
         }
     } else {
-        // CPU encoding - hızlı hareket optimizasyonu
+        // CPU encoding - stabil ayarlar
         pipeline += "x264enc tune=zerolatency speed-preset=ultrafast bitrate=" + std::to_string(config.bitrate) + 
-                   " key-int-max=" + std::to_string(config.gop_size) + 
-                   " bframes=0 ref=1 ! ";
+                   " key-int-max=" + std::to_string(config.gop_size) + " ! ";
     }
     
     pipeline += "h264parse ! rtph264pay ! ";
