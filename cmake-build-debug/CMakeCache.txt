@@ -56,6 +56,32 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the CXX compiler during RELWITHDEBINFO builds.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
+//C compiler
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
+
+//A wrapper around 'ar' adding the appropriate '--plugin' option
+// for the GCC compiler
+CMAKE_C_COMPILER_AR:FILEPATH=/usr/bin/gcc-ar-11
+
+//A wrapper around 'ranlib' adding the appropriate '--plugin' option
+// for the GCC compiler
+CMAKE_C_COMPILER_RANLIB:FILEPATH=/usr/bin/gcc-ranlib-11
+
+//Flags used by the C compiler during all build types.
+CMAKE_C_FLAGS:STRING=
+
+//Flags used by the C compiler during DEBUG builds.
+CMAKE_C_FLAGS_DEBUG:STRING=-g
+
+//Flags used by the C compiler during MINSIZEREL builds.
+CMAKE_C_FLAGS_MINSIZEREL:STRING=-Os -DNDEBUG
+
+//Flags used by the C compiler during RELEASE builds.
+CMAKE_C_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
+
+//Flags used by the C compiler during RELWITHDEBINFO builds.
+CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
+
 //Path to a program.
 CMAKE_DLLTOOL:FILEPATH=CMAKE_DLLTOOL-NOTFOUND
 
@@ -195,6 +221,12 @@ OpenMP_CXX_FLAGS:STRING=-fopenmp
 //CXX compiler libraries for OpenMP parallelization
 OpenMP_CXX_LIB_NAMES:STRING=gomp;pthread
 
+//C compiler flags for OpenMP parallelization
+OpenMP_C_FLAGS:STRING=-fopenmp
+
+//C compiler libraries for OpenMP parallelization
+OpenMP_C_LIB_NAMES:STRING=gomp;pthread
+
 //Path to the gomp library for OpenMP
 OpenMP_gomp_LIBRARY:FILEPATH=/usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so
 
@@ -278,6 +310,22 @@ CMAKE_CXX_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 CMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_RELWITHDEBINFO
 CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER
+CMAKE_C_COMPILER-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER_AR
+CMAKE_C_COMPILER_AR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER_RANLIB
+CMAKE_C_COMPILER_RANLIB-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS
+CMAKE_C_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_DEBUG
+CMAKE_C_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_MINSIZEREL
+CMAKE_C_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_RELEASE
+CMAKE_C_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_RELWITHDEBINFO
+CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_DLLTOOL
 CMAKE_DLLTOOL-ADVANCED:INTERNAL=1
 //Executable file format
@@ -374,7 +422,9 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding OpenMP
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[TRUE][c ][v4.5()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[TRUE][TRUE][c ][v4.5()]
+//Details about finding OpenMP_C
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.a][v4.5()]
 //Details about finding OpenMP_CXX
 FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/11/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.a][v4.5()]
 //Details about finding PkgConfig
@@ -387,10 +437,10 @@ GST_CFLAGS_OTHER:INTERNAL=-pthread
 GST_FOUND:INTERNAL=1
 GST_INCLUDEDIR:INTERNAL=
 GST_INCLUDE_DIRS:INTERNAL=/usr/include/gstreamer-1.0;/usr/include/orc-0.4;/usr/include/gstreamer-1.0;/usr/include/x86_64-linux-gnu;/usr/include/glib-2.0;/usr/lib/x86_64-linux-gnu/glib-2.0/include
-GST_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lgstapp-1.0;-lgstvideo-1.0;-lgstrtp-1.0;-lgstbase-1.0;-lgstreamer-1.0;-lgobject-2.0;-lglib-2.0
+GST_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lgstvideo-1.0;-lgstrtp-1.0;-lgstbase-1.0;-lgstreamer-1.0;-lgobject-2.0;-lglib-2.0
 GST_LDFLAGS_OTHER:INTERNAL=
 GST_LIBDIR:INTERNAL=
-GST_LIBRARIES:INTERNAL=gstapp-1.0;gstvideo-1.0;gstrtp-1.0;gstbase-1.0;gstreamer-1.0;gobject-2.0;glib-2.0
+GST_LIBRARIES:INTERNAL=gstvideo-1.0;gstrtp-1.0;gstbase-1.0;gstreamer-1.0;gobject-2.0;glib-2.0
 GST_LIBRARY_DIRS:INTERNAL=/usr/lib/x86_64-linux-gnu
 GST_LIBS:INTERNAL=
 GST_LIBS_L:INTERNAL=
@@ -402,10 +452,10 @@ GST_STATIC_CFLAGS:INTERNAL=-pthread;-I/usr/include/gstreamer-1.0;-I/usr/include/
 GST_STATIC_CFLAGS_I:INTERNAL=
 GST_STATIC_CFLAGS_OTHER:INTERNAL=-pthread
 GST_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/gstreamer-1.0;/usr/include/orc-0.4;/usr/include/gstreamer-1.0;/usr/include/x86_64-linux-gnu;/usr/include/glib-2.0;/usr/lib/x86_64-linux-gnu/glib-2.0/include
-GST_STATIC_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lgstapp-1.0;-lgstvideo-1.0;-lm;-lgstrtp-1.0;-lm;-lgstaudio-1.0;-lm;-lgsttag-1.0;-lm;-lorc-0.4;-lm;-pthread;-lgstbase-1.0;-lgstreamer-1.0;-lm;-ldl;-Wl,--export-dynamic;-lgmodule-2.0;-pthread;-lunwind;-llzma;-ldw;-lbz2;-llzma;-pthread;-lpthread;-lelf;-lz;-lgobject-2.0;-lffi;-lglib-2.0;-pthread;-lm;-lpcre
+GST_STATIC_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lgstvideo-1.0;-lm;-lgstrtp-1.0;-lm;-lgstaudio-1.0;-lm;-lgsttag-1.0;-lm;-lorc-0.4;-lm;-pthread;-lgstbase-1.0;-lgstreamer-1.0;-lm;-ldl;-Wl,--export-dynamic;-lgmodule-2.0;-pthread;-lunwind;-llzma;-ldw;-lbz2;-llzma;-pthread;-lpthread;-lelf;-lz;-lgobject-2.0;-lffi;-lglib-2.0;-pthread;-lm;-lpcre
 GST_STATIC_LDFLAGS_OTHER:INTERNAL=-pthread;-Wl,--export-dynamic;-pthread
 GST_STATIC_LIBDIR:INTERNAL=
-GST_STATIC_LIBRARIES:INTERNAL=gstapp-1.0;gstvideo-1.0;m;gstrtp-1.0;m;gstaudio-1.0;m;gsttag-1.0;m;orc-0.4;m;gstbase-1.0;gstreamer-1.0;m;dl;gmodule-2.0;unwind;lzma;dw;bz2;lzma;pthread;elf;z;gobject-2.0;ffi;glib-2.0;m;pcre
+GST_STATIC_LIBRARIES:INTERNAL=gstvideo-1.0;m;gstrtp-1.0;m;gstaudio-1.0;m;gsttag-1.0;m;orc-0.4;m;gstbase-1.0;gstreamer-1.0;m;dl;gmodule-2.0;unwind;lzma;dw;bz2;lzma;pthread;elf;z;gobject-2.0;ffi;glib-2.0;m;pcre
 GST_STATIC_LIBRARY_DIRS:INTERNAL=/usr/lib/x86_64-linux-gnu
 GST_STATIC_LIBS:INTERNAL=
 GST_STATIC_LIBS_L:INTERNAL=
@@ -422,6 +472,11 @@ GST_gstreamer-app-1.0_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
 GST_gstreamer-app-1.0_MODULE_NAME:INTERNAL=gstreamer-app-1.0
 GST_gstreamer-app-1.0_PREFIX:INTERNAL=/usr
 GST_gstreamer-app-1.0_VERSION:INTERNAL=1.20.1
+GST_gstreamer-base-1.0_INCLUDEDIR:INTERNAL=/usr/include
+GST_gstreamer-base-1.0_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+GST_gstreamer-base-1.0_MODULE_NAME:INTERNAL=gstreamer-base-1.0
+GST_gstreamer-base-1.0_PREFIX:INTERNAL=/usr
+GST_gstreamer-base-1.0_VERSION:INTERNAL=1.20.3
 GST_gstreamer-rtp-1.0_INCLUDEDIR:INTERNAL=/usr/include
 GST_gstreamer-rtp-1.0_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
 GST_gstreamer-rtp-1.0_MODULE_NAME:INTERNAL=gstreamer-rtp-1.0
@@ -434,14 +489,24 @@ GST_gstreamer-video-1.0_PREFIX:INTERNAL=/usr
 GST_gstreamer-video-1.0_VERSION:INTERNAL=1.20.1
 //Result of TRY_COMPILE
 OpenMP_COMPILE_RESULT_CXX_fopenmp:INTERNAL=TRUE
+//Result of TRY_COMPILE
+OpenMP_COMPILE_RESULT_C_fopenmp:INTERNAL=TRUE
 //ADVANCED property for variable: OpenMP_CXX_FLAGS
 OpenMP_CXX_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OpenMP_CXX_LIB_NAMES
 OpenMP_CXX_LIB_NAMES-ADVANCED:INTERNAL=1
 //CXX compiler's OpenMP specification date
 OpenMP_CXX_SPEC_DATE:INTERNAL=201511
+//ADVANCED property for variable: OpenMP_C_FLAGS
+OpenMP_C_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OpenMP_C_LIB_NAMES
+OpenMP_C_LIB_NAMES-ADVANCED:INTERNAL=1
+//C compiler's OpenMP specification date
+OpenMP_C_SPEC_DATE:INTERNAL=201511
 //Result of TRY_COMPILE
 OpenMP_SPECTEST_CXX_:INTERNAL=TRUE
+//Result of TRY_COMPILE
+OpenMP_SPECTEST_C_:INTERNAL=TRUE
 //ADVANCED property for variable: OpenMP_gomp_LIBRARY
 OpenMP_gomp_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OpenMP_pthread_LIBRARY
@@ -450,7 +515,7 @@ OpenMP_pthread_LIBRARY-ADVANCED:INTERNAL=1
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
-__pkg_config_arguments_GST:INTERNAL=REQUIRED;gstreamer-1.0;gstreamer-app-1.0;gstreamer-video-1.0;gstreamer-rtp-1.0
+__pkg_config_arguments_GST:INTERNAL=REQUIRED;gstreamer-1.0;gstreamer-base-1.0;gstreamer-video-1.0;gstreamer-rtp-1.0
 __pkg_config_checked_GST:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_GST_glib-2.0
 pkgcfg_lib_GST_glib-2.0-ADVANCED:INTERNAL=1
