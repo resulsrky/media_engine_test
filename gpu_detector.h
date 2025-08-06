@@ -7,5 +7,7 @@ class GPUDetector {
 public:
     static bool detectNVIDIA();
     static bool detectVAAPI();
+    static bool detectQSV();
+    static bool detectV4L2H264();
     static std::string getBestGPUCodec();
 }; 

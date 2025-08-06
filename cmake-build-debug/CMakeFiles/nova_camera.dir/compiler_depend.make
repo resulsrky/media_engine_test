@@ -603,7 +603,12 @@ CMakeFiles/nova_camera.dir/heartbeat_manager.cpp.o: ../heartbeat_manager.cpp \
   /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
   /usr/include/x86_64-linux-gnu/bits/unistd.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
-  /usr/include/linux/close_range.h
+  /usr/include/linux/close_range.h \
+  /usr/include/c++/11/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h
 
 CMakeFiles/nova_camera.dir/main.cpp.o: ../main.cpp \
   /usr/include/stdc-predef.h \
@@ -2552,6 +2557,8 @@ CMakeFiles/nova_camera.dir/video_manager.cpp.o: ../video_manager.cpp \
 /usr/include/x86_64-linux-gnu/bits/wchar2.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/c++/11/cstring:
 
 /usr/include/x86_64-linux-gnu/asm/sockios.h:
 
