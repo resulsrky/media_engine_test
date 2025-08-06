@@ -187,7 +187,9 @@ int main(int argc, char *argv[]) {
     } catch (...) {
         std::cout << "Program sonlandırılıyor..." << std::endl;
     }
-    
-    streamer.stop();
-    return 0;
+    if(waitKey(5) >= 0){
+        streamer.stop();
+        return 0;
+
+    }
 }

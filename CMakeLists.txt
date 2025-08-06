@@ -68,6 +68,21 @@ add_executable(video_chat_auto
         video_chat_auto.cpp
 )
 
+# Ayna Video Chat - Reverse Kamera
+add_executable(video_chat_mirror
+        video_chat_mirror.cpp
+)
+
+# Tümleşik Video Chat Uygulaması
+add_executable(nova_video_chat
+        nova_video_chat.cpp
+)
+
+# Tek Kamera Uygulaması
+add_executable(nova_camera
+        nova_camera.cpp
+)
+
 # Include dizinleri
 target_include_directories(nova_engine_v2 PRIVATE
         ${GST_INCLUDE_DIRS}
@@ -99,6 +114,21 @@ target_include_directories(video_chat_auto PRIVATE
         ${OpenCV_INCLUDE_DIRS}
 )
 
+target_include_directories(video_chat_mirror PRIVATE
+        ${GST_INCLUDE_DIRS}
+        ${OpenCV_INCLUDE_DIRS}
+)
+
+target_include_directories(nova_video_chat PRIVATE
+        ${GST_INCLUDE_DIRS}
+        ${OpenCV_INCLUDE_DIRS}
+)
+
+target_include_directories(nova_camera PRIVATE
+        ${GST_INCLUDE_DIRS}
+        ${OpenCV_INCLUDE_DIRS}
+)
+
 # Link dizinleri
 target_link_directories(nova_engine_v2 PRIVATE
         ${GST_LIBRARY_DIRS}
@@ -121,6 +151,18 @@ target_link_directories(video_chat_advanced PRIVATE
 )
 
 target_link_directories(video_chat_auto PRIVATE
+        ${GST_LIBRARY_DIRS}
+)
+
+target_link_directories(video_chat_mirror PRIVATE
+        ${GST_LIBRARY_DIRS}
+)
+
+target_link_directories(nova_video_chat PRIVATE
+        ${GST_LIBRARY_DIRS}
+)
+
+target_link_directories(nova_camera PRIVATE
         ${GST_LIBRARY_DIRS}
 )
 
@@ -161,6 +203,24 @@ target_compile_options(video_chat_auto PRIVATE
         $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra>
 )
 
+target_compile_options(video_chat_mirror PRIVATE
+        ${GST_CFLAGS_OTHER}
+        $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra>
+        $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra>
+)
+
+target_compile_options(nova_video_chat PRIVATE
+        ${GST_CFLAGS_OTHER}
+        $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra>
+        $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra>
+)
+
+target_compile_options(nova_camera PRIVATE
+        ${GST_CFLAGS_OTHER}
+        $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra>
+        $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra>
+)
+
 # Bağıntılar
 target_link_libraries(nova_engine_v2 PRIVATE
         ${GST_LIBRARIES}
@@ -193,6 +253,24 @@ target_link_libraries(video_chat_advanced PRIVATE
 )
 
 target_link_libraries(video_chat_auto PRIVATE
+        ${GST_LIBRARIES}
+        Threads::Threads
+        ${OpenCV_LIBS}
+)
+
+target_link_libraries(video_chat_mirror PRIVATE
+        ${GST_LIBRARIES}
+        Threads::Threads
+        ${OpenCV_LIBS}
+)
+
+target_link_libraries(nova_video_chat PRIVATE
+        ${GST_LIBRARIES}
+        Threads::Threads
+        ${OpenCV_LIBS}
+)
+
+target_link_libraries(nova_camera PRIVATE
         ${GST_LIBRARIES}
         Threads::Threads
         ${OpenCV_LIBS}
