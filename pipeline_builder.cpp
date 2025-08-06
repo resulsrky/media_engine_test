@@ -21,20 +21,21 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
         pipeline += "videoflip method=horizontal-flip ! ";
     }
     
-    // Tee for self-view and streaming - optimize edilmiş
+    // Tee for self-view and streaming - buffer optimize edilmiş
     pipeline += "tee name=t ! ";
-    pipeline += "queue max-size-buffers=2 max-size-time=0 max-size-bytes=0 ! ";
+    pipeline += "queue max-size-buffers=8 max-size-time=1000000000 max-size-bytes=0 ! "; // 1 saniye buffer
     pipeline += "videoconvert ! autovideosink sync=false t. ! ";
-    pipeline += "queue max-size-buffers=4 max-size-time=0 max-size-bytes=0 ! "; // Optimize buffer
+    pipeline += "queue max-size-buffers=16 max-size-time=2000000000 max-size-bytes=0 ! "; // 2 saniye buffer
     
     // CPU encoding - basitleştirilmiş (GPU sorunları için)
     pipeline += "x264enc tune=zerolatency speed-preset=ultrafast bitrate=" + std::to_string(config.bitrate) + 
                " key-int-max=" + std::to_string(config.gop_size) + 
                " bframes=0 ref=1 ! ";
     
-    // RTP ve network optimizasyonu
+    // RTP ve network optimizasyonu - sabit paket boyutu
     pipeline += "h264parse config-interval=1 ! ";
-    pipeline += "rtph264pay pt=96 config-interval=1 ! ";
+    pipeline += "rtph264pay pt=96 config-interval=1 mtu=1200 ! "; // 1200 byte sabit paket
+    pipeline += "queue max-size-buffers=8 max-size-time=1000000000 max-size-bytes=0 ! "; // Network buffer
     pipeline += "udpsink host=" + remote_ip + " port=" + std::to_string(remote_port) + 
                " sync=false async=false";
     
@@ -44,15 +45,16 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
 std::string PipelineBuilder::buildReceiverPipeline(int local_port) {
     std::string pipeline = "udpsrc port=" + std::to_string(local_port) + 
                           " caps=\"application/x-rtp,media=video,clock-rate=90000,encoding-name=H264\" ! ";
+    pipeline += "queue max-size-buffers=10 max-size-time=1500000000 max-size-bytes=0 ! "; // Network receive buffer
     pipeline += "rtph264depay ! ";
     pipeline += "h264parse ! ";
     
     // CPU decoding - basitleştirilmiş (GPU sorunları için)
     pipeline += "avdec_h264 ! ";
     
-    // Video display optimizasyonu
+    // Video display optimizasyonu - buffer artırıldı
     pipeline += "videoconvert ! ";
-    pipeline += "queue max-size-buffers=2 max-size-time=0 max-size-bytes=0 ! ";
+    pipeline += "queue max-size-buffers=12 max-size-time=1500000000 max-size-bytes=0 ! "; // 1.5 saniye buffer
     pipeline += "xvimagesink sync=false async=false";
     
     return pipeline;
