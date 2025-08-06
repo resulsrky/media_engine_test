@@ -54,16 +54,24 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ryuzaki/Desktop/NovaEngineV2
+CMAKE_SOURCE_DIR = /home/raulcto/CLionProjects/NovaEngineV2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ryuzaki/Desktop/NovaEngineV2/cmake-build-debug
+CMAKE_BINARY_DIR = /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/zero_copy_cam.dir/all
+all: CMakeFiles/nova_engine_v2.dir/all
+all: CMakeFiles/test_receiver.dir/all
+all: CMakeFiles/simple_camera.dir/all
+all: CMakeFiles/video_chat.dir/all
+all: CMakeFiles/video_chat_advanced.dir/all
+all: CMakeFiles/video_chat_auto.dir/all
+all: CMakeFiles/video_chat_mirror.dir/all
+all: CMakeFiles/nova_video_chat.dir/all
+all: CMakeFiles/nova_camera.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +79,250 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/zero_copy_cam.dir/clean
+clean: CMakeFiles/nova_engine_v2.dir/clean
+clean: CMakeFiles/test_receiver.dir/clean
+clean: CMakeFiles/simple_camera.dir/clean
+clean: CMakeFiles/video_chat.dir/clean
+clean: CMakeFiles/video_chat_advanced.dir/clean
+clean: CMakeFiles/video_chat_auto.dir/clean
+clean: CMakeFiles/video_chat_mirror.dir/clean
+clean: CMakeFiles/nova_video_chat.dir/clean
+clean: CMakeFiles/nova_camera.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/zero_copy_cam.dir
+# Target rules for target CMakeFiles/nova_engine_v2.dir
 
 # All Build rule for target.
-CMakeFiles/zero_copy_cam.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/zero_copy_cam.dir/build.make CMakeFiles/zero_copy_cam.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/zero_copy_cam.dir/build.make CMakeFiles/zero_copy_cam.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ryuzaki/Desktop/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target zero_copy_cam"
-.PHONY : CMakeFiles/zero_copy_cam.dir/all
+CMakeFiles/nova_engine_v2.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_engine_v2.dir/build.make CMakeFiles/nova_engine_v2.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_engine_v2.dir/build.make CMakeFiles/nova_engine_v2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target nova_engine_v2"
+.PHONY : CMakeFiles/nova_engine_v2.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/zero_copy_cam.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ryuzaki/Desktop/NovaEngineV2/cmake-build-debug/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/zero_copy_cam.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ryuzaki/Desktop/NovaEngineV2/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/zero_copy_cam.dir/rule
+CMakeFiles/nova_engine_v2.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/nova_engine_v2.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/nova_engine_v2.dir/rule
 
 # Convenience name for target.
-zero_copy_cam: CMakeFiles/zero_copy_cam.dir/rule
-.PHONY : zero_copy_cam
+nova_engine_v2: CMakeFiles/nova_engine_v2.dir/rule
+.PHONY : nova_engine_v2
 
 # clean rule for target.
-CMakeFiles/zero_copy_cam.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/zero_copy_cam.dir/build.make CMakeFiles/zero_copy_cam.dir/clean
-.PHONY : CMakeFiles/zero_copy_cam.dir/clean
+CMakeFiles/nova_engine_v2.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_engine_v2.dir/build.make CMakeFiles/nova_engine_v2.dir/clean
+.PHONY : CMakeFiles/nova_engine_v2.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_receiver.dir
+
+# All Build rule for target.
+CMakeFiles/test_receiver.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_receiver.dir/build.make CMakeFiles/test_receiver.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_receiver.dir/build.make CMakeFiles/test_receiver.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=9,10 "Built target test_receiver"
+.PHONY : CMakeFiles/test_receiver.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_receiver.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_receiver.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/test_receiver.dir/rule
+
+# Convenience name for target.
+test_receiver: CMakeFiles/test_receiver.dir/rule
+.PHONY : test_receiver
+
+# clean rule for target.
+CMakeFiles/test_receiver.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_receiver.dir/build.make CMakeFiles/test_receiver.dir/clean
+.PHONY : CMakeFiles/test_receiver.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/simple_camera.dir
+
+# All Build rule for target.
+CMakeFiles/simple_camera.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_camera.dir/build.make CMakeFiles/simple_camera.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_camera.dir/build.make CMakeFiles/simple_camera.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=7,8 "Built target simple_camera"
+.PHONY : CMakeFiles/simple_camera.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/simple_camera.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/simple_camera.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/simple_camera.dir/rule
+
+# Convenience name for target.
+simple_camera: CMakeFiles/simple_camera.dir/rule
+.PHONY : simple_camera
+
+# clean rule for target.
+CMakeFiles/simple_camera.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_camera.dir/build.make CMakeFiles/simple_camera.dir/clean
+.PHONY : CMakeFiles/simple_camera.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/video_chat.dir
+
+# All Build rule for target.
+CMakeFiles/video_chat.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat.dir/build.make CMakeFiles/video_chat.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat.dir/build.make CMakeFiles/video_chat.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=11,12 "Built target video_chat"
+.PHONY : CMakeFiles/video_chat.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/video_chat.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/video_chat.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/video_chat.dir/rule
+
+# Convenience name for target.
+video_chat: CMakeFiles/video_chat.dir/rule
+.PHONY : video_chat
+
+# clean rule for target.
+CMakeFiles/video_chat.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat.dir/build.make CMakeFiles/video_chat.dir/clean
+.PHONY : CMakeFiles/video_chat.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/video_chat_advanced.dir
+
+# All Build rule for target.
+CMakeFiles/video_chat_advanced.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_advanced.dir/build.make CMakeFiles/video_chat_advanced.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_advanced.dir/build.make CMakeFiles/video_chat_advanced.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=13,14 "Built target video_chat_advanced"
+.PHONY : CMakeFiles/video_chat_advanced.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/video_chat_advanced.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/video_chat_advanced.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/video_chat_advanced.dir/rule
+
+# Convenience name for target.
+video_chat_advanced: CMakeFiles/video_chat_advanced.dir/rule
+.PHONY : video_chat_advanced
+
+# clean rule for target.
+CMakeFiles/video_chat_advanced.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_advanced.dir/build.make CMakeFiles/video_chat_advanced.dir/clean
+.PHONY : CMakeFiles/video_chat_advanced.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/video_chat_auto.dir
+
+# All Build rule for target.
+CMakeFiles/video_chat_auto.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_auto.dir/build.make CMakeFiles/video_chat_auto.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_auto.dir/build.make CMakeFiles/video_chat_auto.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=15,16 "Built target video_chat_auto"
+.PHONY : CMakeFiles/video_chat_auto.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/video_chat_auto.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/video_chat_auto.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/video_chat_auto.dir/rule
+
+# Convenience name for target.
+video_chat_auto: CMakeFiles/video_chat_auto.dir/rule
+.PHONY : video_chat_auto
+
+# clean rule for target.
+CMakeFiles/video_chat_auto.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_auto.dir/build.make CMakeFiles/video_chat_auto.dir/clean
+.PHONY : CMakeFiles/video_chat_auto.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/video_chat_mirror.dir
+
+# All Build rule for target.
+CMakeFiles/video_chat_mirror.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_mirror.dir/build.make CMakeFiles/video_chat_mirror.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_mirror.dir/build.make CMakeFiles/video_chat_mirror.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=17,18 "Built target video_chat_mirror"
+.PHONY : CMakeFiles/video_chat_mirror.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/video_chat_mirror.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/video_chat_mirror.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/video_chat_mirror.dir/rule
+
+# Convenience name for target.
+video_chat_mirror: CMakeFiles/video_chat_mirror.dir/rule
+.PHONY : video_chat_mirror
+
+# clean rule for target.
+CMakeFiles/video_chat_mirror.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_mirror.dir/build.make CMakeFiles/video_chat_mirror.dir/clean
+.PHONY : CMakeFiles/video_chat_mirror.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/nova_video_chat.dir
+
+# All Build rule for target.
+CMakeFiles/nova_video_chat.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_video_chat.dir/build.make CMakeFiles/nova_video_chat.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_video_chat.dir/build.make CMakeFiles/nova_video_chat.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=5,6 "Built target nova_video_chat"
+.PHONY : CMakeFiles/nova_video_chat.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/nova_video_chat.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/nova_video_chat.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/nova_video_chat.dir/rule
+
+# Convenience name for target.
+nova_video_chat: CMakeFiles/nova_video_chat.dir/rule
+.PHONY : nova_video_chat
+
+# clean rule for target.
+CMakeFiles/nova_video_chat.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_video_chat.dir/build.make CMakeFiles/nova_video_chat.dir/clean
+.PHONY : CMakeFiles/nova_video_chat.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/nova_camera.dir
+
+# All Build rule for target.
+CMakeFiles/nova_camera.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target nova_camera"
+.PHONY : CMakeFiles/nova_camera.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/nova_camera.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/nova_camera.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/nova_camera.dir/rule
+
+# Convenience name for target.
+nova_camera: CMakeFiles/nova_camera.dir/rule
+.PHONY : nova_camera
+
+# clean rule for target.
+CMakeFiles/nova_camera.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/clean
+.PHONY : CMakeFiles/nova_camera.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

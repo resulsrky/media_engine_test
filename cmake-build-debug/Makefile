@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ryuzaki/Desktop/NovaEngineV2
+CMAKE_SOURCE_DIR = /home/raulcto/CLionProjects/NovaEngineV2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ryuzaki/Desktop/NovaEngineV2/cmake-build-debug
+CMAKE_BINARY_DIR = /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -85,11 +85,56 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ryuzaki/Desktop/NovaEngineV2/cmake-build-debug/CMakeFiles /home/ryuzaki/Desktop/NovaEngineV2/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ryuzaki/Desktop/NovaEngineV2/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,24 +162,128 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named zero_copy_cam
+# Target rules for targets named nova_engine_v2
 
 # Build rule for target.
-zero_copy_cam: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 zero_copy_cam
-.PHONY : zero_copy_cam
+nova_engine_v2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nova_engine_v2
+.PHONY : nova_engine_v2
 
 # fast build rule for target.
-zero_copy_cam/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/zero_copy_cam.dir/build.make CMakeFiles/zero_copy_cam.dir/build
-.PHONY : zero_copy_cam/fast
+nova_engine_v2/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_engine_v2.dir/build.make CMakeFiles/nova_engine_v2.dir/build
+.PHONY : nova_engine_v2/fast
+
+#=============================================================================
+# Target rules for targets named test_receiver
+
+# Build rule for target.
+test_receiver: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_receiver
+.PHONY : test_receiver
+
+# fast build rule for target.
+test_receiver/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_receiver.dir/build.make CMakeFiles/test_receiver.dir/build
+.PHONY : test_receiver/fast
+
+#=============================================================================
+# Target rules for targets named simple_camera
+
+# Build rule for target.
+simple_camera: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 simple_camera
+.PHONY : simple_camera
+
+# fast build rule for target.
+simple_camera/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_camera.dir/build.make CMakeFiles/simple_camera.dir/build
+.PHONY : simple_camera/fast
+
+#=============================================================================
+# Target rules for targets named video_chat
+
+# Build rule for target.
+video_chat: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 video_chat
+.PHONY : video_chat
+
+# fast build rule for target.
+video_chat/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat.dir/build.make CMakeFiles/video_chat.dir/build
+.PHONY : video_chat/fast
+
+#=============================================================================
+# Target rules for targets named video_chat_advanced
+
+# Build rule for target.
+video_chat_advanced: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 video_chat_advanced
+.PHONY : video_chat_advanced
+
+# fast build rule for target.
+video_chat_advanced/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_advanced.dir/build.make CMakeFiles/video_chat_advanced.dir/build
+.PHONY : video_chat_advanced/fast
+
+#=============================================================================
+# Target rules for targets named video_chat_auto
+
+# Build rule for target.
+video_chat_auto: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 video_chat_auto
+.PHONY : video_chat_auto
+
+# fast build rule for target.
+video_chat_auto/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_auto.dir/build.make CMakeFiles/video_chat_auto.dir/build
+.PHONY : video_chat_auto/fast
+
+#=============================================================================
+# Target rules for targets named video_chat_mirror
+
+# Build rule for target.
+video_chat_mirror: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 video_chat_mirror
+.PHONY : video_chat_mirror
+
+# fast build rule for target.
+video_chat_mirror/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_mirror.dir/build.make CMakeFiles/video_chat_mirror.dir/build
+.PHONY : video_chat_mirror/fast
+
+#=============================================================================
+# Target rules for targets named nova_video_chat
+
+# Build rule for target.
+nova_video_chat: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nova_video_chat
+.PHONY : nova_video_chat
+
+# fast build rule for target.
+nova_video_chat/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_video_chat.dir/build.make CMakeFiles/nova_video_chat.dir/build
+.PHONY : nova_video_chat/fast
+
+#=============================================================================
+# Target rules for targets named nova_camera
+
+# Build rule for target.
+nova_camera: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nova_camera
+.PHONY : nova_camera
+
+# fast build rule for target.
+nova_camera/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/build
+.PHONY : nova_camera/fast
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/zero_copy_cam.dir/build.make CMakeFiles/zero_copy_cam.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_engine_v2.dir/build.make CMakeFiles/nova_engine_v2.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -142,7 +291,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/zero_copy_cam.dir/build.make CMakeFiles/zero_copy_cam.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_engine_v2.dir/build.make CMakeFiles/nova_engine_v2.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -150,8 +299,200 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/zero_copy_cam.dir/build.make CMakeFiles/zero_copy_cam.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_engine_v2.dir/build.make CMakeFiles/nova_engine_v2.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+nova_camera.o: nova_camera.cpp.o
+.PHONY : nova_camera.o
+
+# target to build an object file
+nova_camera.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/nova_camera.cpp.o
+.PHONY : nova_camera.cpp.o
+
+nova_camera.i: nova_camera.cpp.i
+.PHONY : nova_camera.i
+
+# target to preprocess a source file
+nova_camera.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/nova_camera.cpp.i
+.PHONY : nova_camera.cpp.i
+
+nova_camera.s: nova_camera.cpp.s
+.PHONY : nova_camera.s
+
+# target to generate assembly for a file
+nova_camera.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_camera.dir/build.make CMakeFiles/nova_camera.dir/nova_camera.cpp.s
+.PHONY : nova_camera.cpp.s
+
+nova_video_chat.o: nova_video_chat.cpp.o
+.PHONY : nova_video_chat.o
+
+# target to build an object file
+nova_video_chat.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_video_chat.dir/build.make CMakeFiles/nova_video_chat.dir/nova_video_chat.cpp.o
+.PHONY : nova_video_chat.cpp.o
+
+nova_video_chat.i: nova_video_chat.cpp.i
+.PHONY : nova_video_chat.i
+
+# target to preprocess a source file
+nova_video_chat.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_video_chat.dir/build.make CMakeFiles/nova_video_chat.dir/nova_video_chat.cpp.i
+.PHONY : nova_video_chat.cpp.i
+
+nova_video_chat.s: nova_video_chat.cpp.s
+.PHONY : nova_video_chat.s
+
+# target to generate assembly for a file
+nova_video_chat.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/nova_video_chat.dir/build.make CMakeFiles/nova_video_chat.dir/nova_video_chat.cpp.s
+.PHONY : nova_video_chat.cpp.s
+
+simple_camera.o: simple_camera.cpp.o
+.PHONY : simple_camera.o
+
+# target to build an object file
+simple_camera.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_camera.dir/build.make CMakeFiles/simple_camera.dir/simple_camera.cpp.o
+.PHONY : simple_camera.cpp.o
+
+simple_camera.i: simple_camera.cpp.i
+.PHONY : simple_camera.i
+
+# target to preprocess a source file
+simple_camera.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_camera.dir/build.make CMakeFiles/simple_camera.dir/simple_camera.cpp.i
+.PHONY : simple_camera.cpp.i
+
+simple_camera.s: simple_camera.cpp.s
+.PHONY : simple_camera.s
+
+# target to generate assembly for a file
+simple_camera.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_camera.dir/build.make CMakeFiles/simple_camera.dir/simple_camera.cpp.s
+.PHONY : simple_camera.cpp.s
+
+test_receiver.o: test_receiver.cpp.o
+.PHONY : test_receiver.o
+
+# target to build an object file
+test_receiver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_receiver.dir/build.make CMakeFiles/test_receiver.dir/test_receiver.cpp.o
+.PHONY : test_receiver.cpp.o
+
+test_receiver.i: test_receiver.cpp.i
+.PHONY : test_receiver.i
+
+# target to preprocess a source file
+test_receiver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_receiver.dir/build.make CMakeFiles/test_receiver.dir/test_receiver.cpp.i
+.PHONY : test_receiver.cpp.i
+
+test_receiver.s: test_receiver.cpp.s
+.PHONY : test_receiver.s
+
+# target to generate assembly for a file
+test_receiver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_receiver.dir/build.make CMakeFiles/test_receiver.dir/test_receiver.cpp.s
+.PHONY : test_receiver.cpp.s
+
+video_chat.o: video_chat.cpp.o
+.PHONY : video_chat.o
+
+# target to build an object file
+video_chat.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat.dir/build.make CMakeFiles/video_chat.dir/video_chat.cpp.o
+.PHONY : video_chat.cpp.o
+
+video_chat.i: video_chat.cpp.i
+.PHONY : video_chat.i
+
+# target to preprocess a source file
+video_chat.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat.dir/build.make CMakeFiles/video_chat.dir/video_chat.cpp.i
+.PHONY : video_chat.cpp.i
+
+video_chat.s: video_chat.cpp.s
+.PHONY : video_chat.s
+
+# target to generate assembly for a file
+video_chat.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat.dir/build.make CMakeFiles/video_chat.dir/video_chat.cpp.s
+.PHONY : video_chat.cpp.s
+
+video_chat_advanced.o: video_chat_advanced.cpp.o
+.PHONY : video_chat_advanced.o
+
+# target to build an object file
+video_chat_advanced.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_advanced.dir/build.make CMakeFiles/video_chat_advanced.dir/video_chat_advanced.cpp.o
+.PHONY : video_chat_advanced.cpp.o
+
+video_chat_advanced.i: video_chat_advanced.cpp.i
+.PHONY : video_chat_advanced.i
+
+# target to preprocess a source file
+video_chat_advanced.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_advanced.dir/build.make CMakeFiles/video_chat_advanced.dir/video_chat_advanced.cpp.i
+.PHONY : video_chat_advanced.cpp.i
+
+video_chat_advanced.s: video_chat_advanced.cpp.s
+.PHONY : video_chat_advanced.s
+
+# target to generate assembly for a file
+video_chat_advanced.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_advanced.dir/build.make CMakeFiles/video_chat_advanced.dir/video_chat_advanced.cpp.s
+.PHONY : video_chat_advanced.cpp.s
+
+video_chat_auto.o: video_chat_auto.cpp.o
+.PHONY : video_chat_auto.o
+
+# target to build an object file
+video_chat_auto.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_auto.dir/build.make CMakeFiles/video_chat_auto.dir/video_chat_auto.cpp.o
+.PHONY : video_chat_auto.cpp.o
+
+video_chat_auto.i: video_chat_auto.cpp.i
+.PHONY : video_chat_auto.i
+
+# target to preprocess a source file
+video_chat_auto.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_auto.dir/build.make CMakeFiles/video_chat_auto.dir/video_chat_auto.cpp.i
+.PHONY : video_chat_auto.cpp.i
+
+video_chat_auto.s: video_chat_auto.cpp.s
+.PHONY : video_chat_auto.s
+
+# target to generate assembly for a file
+video_chat_auto.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_auto.dir/build.make CMakeFiles/video_chat_auto.dir/video_chat_auto.cpp.s
+.PHONY : video_chat_auto.cpp.s
+
+video_chat_mirror.o: video_chat_mirror.cpp.o
+.PHONY : video_chat_mirror.o
+
+# target to build an object file
+video_chat_mirror.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_mirror.dir/build.make CMakeFiles/video_chat_mirror.dir/video_chat_mirror.cpp.o
+.PHONY : video_chat_mirror.cpp.o
+
+video_chat_mirror.i: video_chat_mirror.cpp.i
+.PHONY : video_chat_mirror.i
+
+# target to preprocess a source file
+video_chat_mirror.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_mirror.dir/build.make CMakeFiles/video_chat_mirror.dir/video_chat_mirror.cpp.i
+.PHONY : video_chat_mirror.cpp.i
+
+video_chat_mirror.s: video_chat_mirror.cpp.s
+.PHONY : video_chat_mirror.s
+
+# target to generate assembly for a file
+video_chat_mirror.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_chat_mirror.dir/build.make CMakeFiles/video_chat_mirror.dir/video_chat_mirror.cpp.s
+.PHONY : video_chat_mirror.cpp.s
 
 # Help Target
 help:
@@ -160,11 +501,47 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... zero_copy_cam"
+	@echo "... nova_camera"
+	@echo "... nova_engine_v2"
+	@echo "... nova_video_chat"
+	@echo "... simple_camera"
+	@echo "... test_receiver"
+	@echo "... video_chat"
+	@echo "... video_chat_advanced"
+	@echo "... video_chat_auto"
+	@echo "... video_chat_mirror"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... nova_camera.o"
+	@echo "... nova_camera.i"
+	@echo "... nova_camera.s"
+	@echo "... nova_video_chat.o"
+	@echo "... nova_video_chat.i"
+	@echo "... nova_video_chat.s"
+	@echo "... simple_camera.o"
+	@echo "... simple_camera.i"
+	@echo "... simple_camera.s"
+	@echo "... test_receiver.o"
+	@echo "... test_receiver.i"
+	@echo "... test_receiver.s"
+	@echo "... video_chat.o"
+	@echo "... video_chat.i"
+	@echo "... video_chat.s"
+	@echo "... video_chat_advanced.o"
+	@echo "... video_chat_advanced.i"
+	@echo "... video_chat_advanced.s"
+	@echo "... video_chat_auto.o"
+	@echo "... video_chat_auto.i"
+	@echo "... video_chat_auto.s"
+	@echo "... video_chat_mirror.o"
+	@echo "... video_chat_mirror.i"
+	@echo "... video_chat_mirror.s"
 .PHONY : help
 
 

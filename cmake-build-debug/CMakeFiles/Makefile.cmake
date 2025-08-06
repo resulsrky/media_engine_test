@@ -22,6 +22,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.22/Modules/CMakeParseImplicitLinkInfo.cmake"
   "/usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake"
   "/usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake"
+  "/usr/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake"
+  "/usr/share/cmake-3.22/Modules/CheckIncludeFileCXX.cmake"
+  "/usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake"
   "/usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
   "/usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.22/Modules/Compiler/GNU.cmake"
@@ -29,6 +32,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/share/cmake-3.22/Modules/FindPackageMessage.cmake"
   "/usr/share/cmake-3.22/Modules/FindPkgConfig.cmake"
+  "/usr/share/cmake-3.22/Modules/FindThreads.cmake"
+  "/usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake"
   "/usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-3.22/Modules/Platform/Linux.cmake"
@@ -48,5 +53,13 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/zero_copy_cam.dir/DependInfo.cmake"
+  "CMakeFiles/nova_engine_v2.dir/DependInfo.cmake"
+  "CMakeFiles/test_receiver.dir/DependInfo.cmake"
+  "CMakeFiles/simple_camera.dir/DependInfo.cmake"
+  "CMakeFiles/video_chat.dir/DependInfo.cmake"
+  "CMakeFiles/video_chat_advanced.dir/DependInfo.cmake"
+  "CMakeFiles/video_chat_auto.dir/DependInfo.cmake"
+  "CMakeFiles/video_chat_mirror.dir/DependInfo.cmake"
+  "CMakeFiles/nova_video_chat.dir/DependInfo.cmake"
+  "CMakeFiles/nova_camera.dir/DependInfo.cmake"
   )
