@@ -44,9 +44,10 @@ private:
     // Otomatik optimize edilmiş ayarlar
     int video_width = 1280;
     int video_height = 720;
-    int framerate = 30;
-    int bitrate = 4000;
+    int framerate = 30;  // 30fps geri getirildi
+    int bitrate = 500;   // 2000kbps'den 500kbps'e düşürüldü (donma için)
     std::string encoding_preset = "ultrafast";
+    bool use_gpu_acceleration = true;  // GPU acceleration aktif
 
 public:
     NovaCamera(const std::string& local_ip = "0.0.0.0", int local_port = 5000,
@@ -60,6 +61,18 @@ public:
 
     bool initialize() {
         gst_init(nullptr, nullptr);
+        
+        // GPU detection
+        bool gpu_available = false;
+        GstElement *test_gpu = gst_element_factory_make("vaapih264enc", "test");
+        if (test_gpu) {
+            gst_object_unref(test_gpu);
+            gpu_available = true;
+            std::cout << "✓ GPU acceleration (VAAPI) bulundu" << std::endl;
+        } else {
+            use_gpu_acceleration = false;
+            std::cout << "⚠ GPU acceleration bulunamadı, CPU encoding kullanılacak" << std::endl;
+        }
         
         std::cout << "=== Nova Camera - Tek Kamera Uygulaması ===" << std::endl;
         std::cout << "Otomatik olarak tüm görevleri gerçekleştirir:" << std::endl;
@@ -81,7 +94,21 @@ public:
         if (!send_pipeline) {
             std::cerr << "Gönderici pipeline oluşturulamadı: " << (error ? error->message : "Bilinmeyen hata") << std::endl;
             if (error) g_error_free(error);
-            return false;
+            
+            // GPU başarısız olduysa CPU'ya geç
+            if (use_gpu_acceleration) {
+                std::cout << "GPU encoding başarısız, CPU encoding deneniyor..." << std::endl;
+                use_gpu_acceleration = false;
+                send_pipeline_desc = create_send_pipeline();
+                send_pipeline = gst_parse_launch(send_pipeline_desc.c_str(), &error);
+                if (!send_pipeline) {
+                    std::cerr << "CPU encoding de başarısız: " << (error ? error->message : "Bilinmeyen hata") << std::endl;
+                    if (error) g_error_free(error);
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
         
         receive_pipeline = gst_parse_launch(receive_pipeline_desc.c_str(), &error);
@@ -99,22 +126,33 @@ public:
         std::cout << "Bitrate: " << bitrate << " kbps" << std::endl;
         std::cout << "Ayna Efekti: Aktif (doğal görünüm)" << std::endl;
         std::cout << "Self-View: Aktif" << std::endl;
+        std::cout << "GPU Acceleration: " << (use_gpu_acceleration ? "Aktif (VAAPI)" : "Pasif (CPU)") << std::endl;
         std::cout << "Protokol: UDP/RTP" << std::endl;
         
         return true;
     }
     
     std::string create_send_pipeline() {
-        // Kamera -> Ayna -> Self-View + UDP Gönderimi
+        // Basitleştirilmiş ve stabil pipeline
         std::string pipeline = "v4l2src device=/dev/video0 ! ";
         pipeline += "image/jpeg,width=" + std::to_string(video_width) + 
                    ",height=" + std::to_string(video_height) + 
                    ",framerate=" + std::to_string(framerate) + "/1 ! ";
         pipeline += "jpegdec ! videoconvert ! ";
         pipeline += "videoflip method=horizontal-flip ! "; // Ayna efekti
-        pipeline += "tee name=t ! queue ! autovideosink sync=false t. ! queue ! ";
-        pipeline += "x264enc tune=zerolatency speed-preset=" + encoding_preset + 
-                   " bitrate=" + std::to_string(bitrate) + " ! ";
+        pipeline += "tee name=t ! queue max-size-buffers=2 ! autovideosink sync=false t. ! ";
+        pipeline += "queue max-size-buffers=2 ! ";
+        
+        // GPU acceleration seçimi (fallback ile)
+        if (use_gpu_acceleration) {
+            // VAAPI (Intel GPU) dene, bulunamazsa CPU'ya geç
+            pipeline += "vaapih264enc bitrate=" + std::to_string(bitrate) + " ! ";
+            pipeline += "h264parse ! ";
+        } else {
+            // CPU encoding
+            pipeline += "x264enc tune=zerolatency speed-preset=ultrafast bitrate=" + std::to_string(bitrate) + " ! ";
+        }
+        
         pipeline += "rtph264pay ! ";
         pipeline += "udpsink host=" + remote_ip + " port=" + std::to_string(remote_port) + " sync=false";
         
@@ -122,10 +160,11 @@ public:
     }
     
     std::string create_receive_pipeline() {
-        // UDP Alımı -> Karşı Taraf Görüntüsü
+        // Basitleştirilmiş alıcı pipeline
         return "udpsrc port=" + std::to_string(local_port) + " ! "
                "application/x-rtp,media=video,clock-rate=90000,encoding-name=H264 ! "
-               "rtph264depay ! h264parse ! avdec_h264 ! "
+               "rtph264depay ! h264parse ! "
+               "avdec_h264 ! "  // CPU decoding (daha güvenilir)
                "videoconvert ! xvimagesink sync=false";
     }
     
