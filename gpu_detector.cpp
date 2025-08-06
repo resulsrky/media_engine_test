@@ -68,7 +68,7 @@ std::string GPUDetector::getBestGPUCodec() {
     
     std::cout << "🔍 GStreamer GPU tespiti yapılıyor..." << std::endl;
     
-    // NVIDIA NVENC - en hızlı
+    // NVIDIA NVENC - en hızlı (driver gerekli)
     if (detectNVIDIA()) {
         std::cout << "✓ NVIDIA GPU bulundu (NVENC) - GStreamer optimize" << std::endl;
         return "h264_nvenc";
@@ -93,5 +93,6 @@ std::string GPUDetector::getBestGPUCodec() {
     }
     
     std::cout << "⚠ GPU encoder bulunamadı, GStreamer CPU encoding kullanılacak" << std::endl;
+    std::cout << "💡 CPU encoding optimize edildi - yüksek performans" << std::endl;
     return "libx264"; // CPU fallback - GStreamer optimize
 } 
