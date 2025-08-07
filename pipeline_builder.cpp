@@ -49,10 +49,10 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
         pipeline += "videoflip method=horizontal-flip ! ";
     }
     
-    // Önizleme + yayın
+    // Önizleme + yayın kolları (yayın kolu non-blocking/leaky)
     pipeline += "tee name=t ! ";
     pipeline += "queue max-size-buffers=8 max-size-time=1000000000 max-size-bytes=0 ! videoconvert ! autovideosink sync=false t. ! ";
-    pipeline += "queue max-size-buffers=16 max-size-time=2000000000 max-size-bytes=0 ! ";
+    pipeline += "queue max-size-buffers=60 max-size-time=0 max-size-bytes=0 leaky=2 ! ";
     
     // Encoder seçimi (GPU öncelikli, minimal parametrelerle)
     std::string enc = choose_gpu_encoder();
@@ -85,7 +85,7 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
     
     // RTP
     pipeline += "h264parse config-interval=1 ! rtph264pay pt=96 config-interval=1 mtu=1200 ! ";
-    pipeline += "queue max-size-buffers=8 max-size-time=1000000000 max-size-bytes=0 ! ";
+    pipeline += "queue max-size-buffers=80 max-size-time=0 max-size-bytes=0 leaky=2 ! ";
     pipeline += "udpsink host=" + remote_ip + " port=" + std::to_string(remote_port) + " sync=false async=false";
     
     return pipeline;
@@ -93,8 +93,9 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
 
 std::string PipelineBuilder::buildReceiverPipeline(int local_port) {
     std::string pipeline = "udpsrc port=" + std::to_string(local_port) + 
-                          " caps=\"application/x-rtp,media=video,clock-rate=90000,encoding-name=H264\" ! ";
-    pipeline += "queue max-size-buffers=10 max-size-time=1500000000 max-size-bytes=0 ! ";
+                          " buffer-size=2097152 caps=\"application/x-rtp,media=video,clock-rate=90000,encoding-name=H264\" ! ";
+    pipeline += "queue max-size-buffers=200 max-size-time=0 max-size-bytes=0 leaky=2 ! ";
+    pipeline += "rtpjitterbuffer mode=0 latency=120 drop-on-late=true do-lost=true ! ";
     pipeline += "rtph264depay ! h264parse ! ";
     
     std::string dec = choose_decoder();
@@ -102,7 +103,7 @@ std::string PipelineBuilder::buildReceiverPipeline(int local_port) {
     
     // Evrensel postprocess + sink
     pipeline += "videoconvert ! ";
-    pipeline += "queue max-size-buffers=12 max-size-time=1500000000 max-size-bytes=0 ! ";
+    pipeline += "queue max-size-buffers=120 max-size-time=0 max-size-bytes=0 leaky=2 ! ";
     if (has_element("xvimagesink")) {
         pipeline += "xvimagesink sync=false async=false";
     } else {
