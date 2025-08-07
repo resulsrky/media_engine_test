@@ -15,7 +15,7 @@ NovaCamera::NovaCamera(const std::string& local_ip, int local_port,
     config.height = optimal_settings.height;
     config.framerate = optimal_settings.framerate;
     config.bitrate = optimal_settings.bitrate;
-    config.gop_size = optimal_settings.framerate; // 1 saniye GOP
+    config.gop_size = optimal_settings.framerate * 10; // 10 saniye GOP
     config.enable_gpu = optimal_settings.hardware_acceleration;
     config.enable_mirror = true;
     
@@ -65,7 +65,7 @@ bool NovaCamera::initialize() {
     std::cout << "⚡ Otomatik optimize edilmiş ayarlar:" << std::endl;
     std::cout << "Çözünürlük: " << config.width << "x" << config.height << " @ " << config.framerate << " fps" << std::endl;
     std::cout << "Bitrate: " << config.bitrate << " kbps (Maksimum kalite)" << std::endl;
-    std::cout << "GOP Size: " << config.gop_size << " frames (1 saniye)" << std::endl;
+    std::cout << "GOP Size: " << config.gop_size << " frames (" << (static_cast<double>(config.gop_size) / std::max(1, config.framerate)) << " sn)" << std::endl;
     std::cout << "CRF: " << config.crf << " (Maksimum kalite)" << std::endl;
     std::cout << "QP: " << config.qp << " (Maksimum kalite)" << std::endl;
     std::cout << "Hardware Acceleration: " << (config.enable_hardware_acceleration ? "Aktif" : "Pasif") << std::endl;

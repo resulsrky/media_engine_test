@@ -13,7 +13,7 @@ static bool has_element(const char* name) {
 }
 
 static std::string choose_gpu_encoder() {
-    // Geniş uyumluluk önceliği: NVENC -> QSV -> MSDK -> VAAPI(new/legacy) -> V4L2(var.) -> OpenH264
+    // Geniş uyumluluk önceliği: NVENC -> QSV -> MSDK -> VAAPI(new/legacy) -> V4L2(var.)
     if (has_element("nvh264enc")) return "nvh264enc";
     if (has_element("qsvh264enc")) return "qsvh264enc";
     if (has_element("msdkh264enc")) return "msdkh264enc";
@@ -21,8 +21,7 @@ static std::string choose_gpu_encoder() {
     if (has_element("vaapiencode_h264")) return "vaapiencode_h264"; // legacy isim
     if (has_element("v4l2h264enc")) return "v4l2h264enc";
     if (has_element("v4l2video0h264enc")) return "v4l2video0h264enc";
-    if (has_element("openh264enc")) return "openh264enc"; // CPU tabanlı ama alternatif
-    return "";
+    return ""; // CPU fallback: x264enc
 }
 
 static std::string choose_decoder() {
@@ -72,8 +71,6 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
         } else if (enc == "v4l2h264enc" || enc == "v4l2video0h264enc") {
             // V4L2: cihaz bağımlı - property vermiyoruz
             pipeline += enc + " ! ";
-        } else if (enc == "openh264enc") {
-            pipeline += "openh264enc bitrate=" + std::to_string(config.bitrate) + " ! ";
         }
     } else {
         // CPU fallback
