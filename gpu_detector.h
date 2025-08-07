@@ -25,7 +25,9 @@ public:
     static bool detectNvidiaGpu();
     static bool detectAmdGpu();
     static bool detectIntelGpu();
+    static std::string detectGpuType();
     static std::string getOptimalGstEncoder();
+    static std::string getOptimalGstDecoder();
     static std::vector<CameraCapability> detectCameraCapabilities();
     static OptimalSettings getOptimalSettings();
     static long long calculateOptimalBitrate(int width, int height, int framerate);

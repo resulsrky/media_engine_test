@@ -28,6 +28,13 @@ bool GpuDetector::detectIntelGpu() {
     return system("lspci | grep -E 'VGA|3D' | grep -i 'Intel' > /dev/null 2>&1") == 0;
 }
 
+std::string GpuDetector::detectGpuType() {
+    if (detectNvidiaGpu()) return "NVIDIA";
+    if (detectAmdGpu()) return "AMD";
+    if (detectIntelGpu()) return "Intel";
+    return "CPU";
+}
+
 std::string GpuDetector::getOptimalGstEncoder() {
     // En iyi performanstan en kötüye doğru sıralama
     if (detectNvidiaGpu() && has_gst_element("nvh264enc")) return "nvh264enc";
@@ -35,6 +42,14 @@ std::string GpuDetector::getOptimalGstEncoder() {
     if (detectAmdGpu() && has_gst_element("vaapih264enc")) return "vaapih264enc"; // AMD için yaygın VAAPI encoder
     if (has_gst_element("v4l2h264enc")) return "v4l2h264enc"; // Genel V4L2 encoder (örn. Raspberry Pi)
     return "x264enc"; // CPU fallback
+}
+
+std::string GpuDetector::getOptimalGstDecoder() {
+    // En iyi performanstan en kötüye doğru sıralama
+    if (detectNvidiaGpu() && has_gst_element("nvh264dec")) return "nvh264dec";
+    if (detectAmdGpu() && has_gst_element("vaapih264dec")) return "vaapih264dec";
+    if (detectIntelGpu() && has_gst_element("qsvh264dec")) return "qsvh264dec";
+    return "avdec_h264"; // CPU fallback
 }
 
 std::vector<CameraCapability> GpuDetector::detectCameraCapabilities() {
@@ -125,7 +140,7 @@ long long GpuDetector::calculateOptimalBitrate(int width, int height, int framer
     long long optimal_bitrate = static_cast<long long>(base_bitrate * fps_factor * motion_factor);
 
     // Sonucu 1000'lik katlara yuvarla ve makul bir alt limit koy
-    return std::max(4000LL, (optimal_bitrate / 1000) * 1000);
+    return std::max(4000000LL, optimal_bitrate * 1000); // kbps'den bps'e çevir
 }
 
 OptimalSettings GpuDetector::getOptimalSettings() {
