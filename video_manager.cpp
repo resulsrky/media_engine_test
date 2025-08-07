@@ -21,6 +21,10 @@ bool VideoManager::initialize(const std::string& remote_ip, int remote_port, int
     // Pipeline oluştur
     std::string send_pipeline_desc = builder.buildSenderPipeline(remote_ip, remote_port);
     std::string receive_pipeline_desc = builder.buildReceiverPipeline(local_port);
+
+    // DEBUG: Oluşturulan pipeline'ları yazdır
+    std::cout << "SEND PIPELINE: " << send_pipeline_desc << std::endl;
+    std::cout << "RECV PIPELINE: " << receive_pipeline_desc << std::endl;
     
     GError *error = nullptr;
     
