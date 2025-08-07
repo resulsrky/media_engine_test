@@ -16,8 +16,12 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/raul_cto/Documents/GitHub/media_engine_test/video_manager.cpp" "CMakeFiles/nova_camera.dir/video_manager.cpp.o" "gcc" "CMakeFiles/nova_camera.dir/video_manager.cpp.o.d"
   )
 
-# Targets to which this target links.
-set(CMAKE_TARGET_LINKED_INFO_FILES
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.

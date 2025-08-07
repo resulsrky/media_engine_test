@@ -7,15 +7,15 @@ struct CameraCapability {
     int width;
     int height;
     int framerate;
-    std::string format;
-    bool is_supported;
+    std::string format; // e.g., "MJPG", "YUYV"
+    bool is_supported = false;
 };
 
 struct OptimalSettings {
     int width;
     int height;
     int framerate;
-    int bitrate;
+    long long bitrate; // Bitrate can be large
     std::string format;
     bool hardware_acceleration;
 };
@@ -25,8 +25,8 @@ public:
     static bool detectNvidiaGpu();
     static bool detectAmdGpu();
     static bool detectIntelGpu();
-    static std::string getOptimalCodec();
+    static std::string getOptimalGstEncoder();
     static std::vector<CameraCapability> detectCameraCapabilities();
     static OptimalSettings getOptimalSettings();
-    static int calculateOptimalBitrate(int width, int height, int framerate);
-}; 
+    static long long calculateOptimalBitrate(int width, int height, int framerate);
+};

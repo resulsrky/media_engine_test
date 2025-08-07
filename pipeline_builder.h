@@ -5,10 +5,10 @@
 
 class PipelineBuilder {
 private:
-    VideoConfig config;
-    
+    const VideoConfig& config;
+
 public:
     PipelineBuilder(const VideoConfig& cfg);
     std::string buildSenderPipeline(const std::string& remote_ip, int remote_port);
     std::string buildReceiverPipeline(int local_port);
-}; 
+};

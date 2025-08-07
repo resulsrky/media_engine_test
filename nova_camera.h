@@ -17,11 +17,11 @@ private:
     int remote_port;
     
 public:
-    NovaCamera(const std::string& local_ip = "0.0.0.0", int local_port = 5000,
-               const std::string& remote_ip = "127.0.0.1", int remote_port = 5001);
-    
+    NovaCamera(const std::string& local_ip, int local_port,
+               const std::string& remote_ip, int remote_port);
+
     bool initialize();
     bool start();
     void stop();
     bool is_active() const;
-}; 
+};
