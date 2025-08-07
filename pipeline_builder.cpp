@@ -13,10 +13,11 @@ static bool has_element(const char* name) {
 }
 
 static std::string choose_gpu_encoder() {
+    // Öncelik: NVIDIA NVENC -> Intel QSV -> Intel MSDK -> VAAPI
     if (has_element("nvh264enc")) return "nvh264enc";
-    if (has_element("vaapih264enc")) return "vaapih264enc";
     if (has_element("qsvh264enc")) return "qsvh264enc";
     if (has_element("msdkh264enc")) return "msdkh264enc";
+    if (has_element("vaapih264enc")) return "vaapih264enc";
     return "";
 }
 
@@ -61,7 +62,8 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
                        " rc=constqp qp=" + std::to_string(config.qp) +
                        " gop-size=" + std::to_string(config.gop_size) + " ! ";
         } else if (gpu_enc == "vaapih264enc") {
-            pipeline += "vaapih264enc tune=low-power=false rate-control=cbr bitrate=" + std::to_string(config.bitrate) +
+            // DÜZELTİLDİ: 'tune=low-power=false' yerine 'low-power=false' ayrı özellik olarak veriliyor
+            pipeline += "vaapih264enc low-power=false bitrate=" + std::to_string(config.bitrate) +
                        " keyframe-period=" + std::to_string(config.gop_size) + " ! ";
         } else if (gpu_enc == "qsvh264enc") {
             pipeline += "qsvh264enc bitrate=" + std::to_string(config.bitrate) +
