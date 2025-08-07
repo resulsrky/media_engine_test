@@ -60,6 +60,31 @@ int main(int argc, char *argv[]) {
     if (argc >= 2) remote_ip = argv[1];
     if (argc >= 3) local_port = std::stoi(argv[2]);
     if (argc >= 4) remote_port = std::stoi(argv[3]);
+    
+    // IP adresinden port numarasını ayır (örn: 127.0.0.1:5001)
+    size_t colon_pos = remote_ip.find(':');
+    if (colon_pos != std::string::npos) {
+        std::string port_str = remote_ip.substr(colon_pos + 1);
+        remote_ip = remote_ip.substr(0, colon_pos);
+        if (!port_str.empty()) {
+            remote_port = std::stoi(port_str);
+        }
+    }
+    
+    // Eğer remote_port hala 127 ise, bu IP adresinin son kısmı demektir
+    if (remote_port == 127) {
+        remote_port = 5001; // Varsayılan port
+    }
+    
+    // Port numaralarını kontrol et
+    if (local_port < 1024 || local_port > 65535) {
+        std::cerr << "HATA: Geçersiz local port: " << local_port << std::endl;
+        return 1;
+    }
+    if (remote_port < 1024 || remote_port > 65535) {
+        std::cerr << "HATA: Geçersiz remote port: " << remote_port << std::endl;
+        return 1;
+    }
 
     std::cout << "Ayarlar:" << std::endl;
     std::cout << "  - Görüntü Gönderilecek IP (Arkadaşın): " << remote_ip << ":" << remote_port << std::endl;

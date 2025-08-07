@@ -26,25 +26,13 @@ static bool has_element(const char* name) {
 
 // GPU tipine göre optimal video dönüştürücü seç
 static std::string get_gpu_videoconvert() {
-    if (has_element("nvvideoconvert")) {
-        return "nvvideoconvert";
-    } else if (has_element("vaapipostproc")) {
-        return "vaapipostproc";
-    } else if (has_element("qsvvideoconvert")) {
-        return "qsvvideoconvert";
-    }
+    // Şimdilik sadece videoconvert kullan, daha güvenilir
     return "videoconvert"; // CPU fallback
 }
 
 // GPU tipine göre optimal video sink seç
 static std::string get_gpu_videosink() {
-    if (has_element("nv3dsink")) {
-        return "nv3dsink";
-    } else if (has_element("vaapisink")) {
-        return "vaapisink";
-    } else if (has_element("qsvsink")) {
-        return "qsvsink";
-    }
+    // Şimdilik sadece autovideosink kullan, daha güvenilir
     return "autovideosink"; // CPU fallback
 }
 

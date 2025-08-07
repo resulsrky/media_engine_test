@@ -74,7 +74,7 @@ std::vector<CameraCapability> GpuDetector::detectCameraCapabilities() {
 
     while (std::getline(iss, line)) {
         // Format bilgisini yakala (örn: [0]: 'MJPG')
-        if (line.find("Pixel Format") != std::string::npos) {
+        if (line.find("'MJPG'") != std::string::npos || line.find("'YUYV'") != std::string::npos) {
             size_t start = line.find('\'');
             size_t end = line.find('\'', start + 1);
             if (start != std::string::npos && end != std::string::npos) {
