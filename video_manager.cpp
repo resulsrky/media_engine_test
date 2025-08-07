@@ -15,7 +15,7 @@ bool VideoManager::initialize(const std::string& remote_ip, int remote_port, int
     gst_init(nullptr, nullptr);
     
     // GPU detection
-    std::string gpu_codec = GPUDetector::getBestGPUCodec();
+    std::string gpu_codec = GpuDetector::getOptimalCodec();
     std::cout << "✓ GPU Codec: " << gpu_codec << std::endl;
     
     // Pipeline oluştur

@@ -1,3 +1,0 @@
-/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles/nova_camera.dir
-/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/raulcto/CLionProjects/NovaEngineV2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

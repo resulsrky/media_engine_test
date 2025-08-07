@@ -1,13 +1,32 @@
-// gpu_detector.h - GPU tespiti
+// gpu_detector.h - GPU ve kamera donanım tespiti
 #pragma once
-#include <gst/gst.h>
 #include <string>
+#include <vector>
 
-class GPUDetector {
+struct CameraCapability {
+    int width;
+    int height;
+    int framerate;
+    std::string format;
+    bool is_supported;
+};
+
+struct OptimalSettings {
+    int width;
+    int height;
+    int framerate;
+    int bitrate;
+    std::string format;
+    bool hardware_acceleration;
+};
+
+class GpuDetector {
 public:
-    static bool detectNVIDIA();
-    static bool detectVAAPI();
-    static bool detectQSV();
-    static bool detectV4L2H264();
-    static std::string getBestGPUCodec();
+    static bool detectNvidiaGpu();
+    static bool detectAmdGpu();
+    static bool detectIntelGpu();
+    static std::string getOptimalCodec();
+    static std::vector<CameraCapability> detectCameraCapabilities();
+    static OptimalSettings getOptimalSettings();
+    static int calculateOptimalBitrate(int width, int height, int framerate);
 }; 
