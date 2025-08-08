@@ -78,10 +78,16 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
         pipeline += "videoflip method=horizontal-flip ! ";
     }
 
-    // 4. Encoder branch (doğrudan encoder'a gönder)
-    pipeline += "queue max-size-buffers=100 leaky=2 ! ";
+    // 4. Tee ile görüntüyü ikiye böl (kamera görüntüsü + encoder)
+    pipeline += "tee name=t ! ";
+    
+    // 5. Kamera görüntüsü için branch (tee. ! queue ! videosink)
+    pipeline += "queue max-size-buffers=10 leaky=2 ! " + videosink + " sync=false ";
+    
+    // 6. Encoder branch (tee. ! queue ! encoder)
+    pipeline += "t. ! queue max-size-buffers=100 leaky=2 ! ";
 
-    // 5. GPU Encoder (Tüm kodlama GPU'da)
+    // 7. GPU Encoder (Tüm kodlama GPU'da)
     if (encoder == "nvh264enc") {
         pipeline += "nvh264enc bitrate=" + std::to_string(config.bitrate / 1000) + // kbps
                    " preset=p5 tune=ll rc-mode=cbr gop-size=" + std::to_string(config.gop_size) +
