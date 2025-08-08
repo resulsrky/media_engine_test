@@ -32,7 +32,7 @@ static std::string get_gpu_videoconvert() {
 
 // GPU tipine göre optimal video sink seç
 static std::string get_gpu_videosink() {
-    // Şimdilik sadece autovideosink kullan, daha güvenilir
+    // autovideosink daha güvenilir
     return "autovideosink"; // CPU fallback
 }
 
@@ -47,11 +47,13 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
     std::string gpu_type = GpuDetector::detectGpuType();
     std::string videoconvert = get_gpu_videoconvert();
     std::string encoder = GpuDetector::getOptimalGstEncoder();
+    std::string videosink = get_gpu_videosink();
     
     std::cout << "=== GPU OPTIMIZASYONU ===" << std::endl;
     std::cout << "GPU Tipi: " << gpu_type << std::endl;
     std::cout << "Video Dönüştürücü: " << videoconvert << std::endl;
     std::cout << "Encoder: " << encoder << std::endl;
+    std::cout << "Video Sink: " << videosink << std::endl;
     std::cout << "=========================" << std::endl;
 
     // 1. Video Kaynağı (GPU'ya uygun format)
@@ -76,7 +78,16 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
         pipeline += "videoflip method=horizontal-flip ! ";
     }
 
-    // 4. GPU Encoder (Tüm kodlama GPU'da)
+    // 4. Tee ile görüntüyü ikiye böl (kamera görüntüsü + encoder)
+    pipeline += "tee name=t ! ";
+    
+    // 5. Kamera görüntüsü için branch (tee. ! queue ! videosink)
+    pipeline += "queue max-size-buffers=10 leaky=2 ! " + videosink + " sync=false ";
+    
+    // 6. Encoder branch (tee. ! queue ! encoder)
+    pipeline += "t. ! queue max-size-buffers=100 leaky=2 ! ";
+
+    // 7. GPU Encoder (Tüm kodlama GPU'da)
     if (encoder == "nvh264enc") {
         pipeline += "nvh264enc bitrate=" + std::to_string(config.bitrate / 1000) + // kbps
                    " preset=p5 tune=ll rc-mode=cbr gop-size=" + std::to_string(config.gop_size) +
@@ -95,11 +106,11 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
                    " bframes=0 ref=1 ! ";
     }
 
-    // 5. RTP Paketleme ve Ağ Gönderimi
+    // 8. RTP Paketleme ve Ağ Gönderimi
     pipeline += "video/x-h264,profile=high ! ";
     pipeline += "rtph264pay config-interval=-1 pt=96 mtu=1300 ! ";
     
-    // 6. Optimize edilmiş UDP buffer (GPU'dan gelen veriyi hızlıca gönder)
+    // 9. Optimize edilmiş UDP buffer (GPU'dan gelen veriyi hızlıca gönder)
     pipeline += "queue max-size-buffers=2000 max-size-bytes=0 max-size-time=0 leaky=2 ! ";
     pipeline += "udpsink host=" + remote_ip + " port=" + std::to_string(remote_port) + " sync=false async=false";
 
@@ -125,12 +136,12 @@ std::string PipelineBuilder::buildReceiverPipeline(int local_port) {
 
     // 1. UDP Kaynağı ve Yüksek Performanslı Buffer
     pipeline = "udpsrc port=" + std::to_string(local_port) +
-               " buffer-size=10485760 " + // 10MB buffer (GPU için daha büyük)
+               " buffer-size=524288 " + // 512KB buffer (daha makul)
                "caps=\"application/x-rtp,media=video,clock-rate=90000,encoding-name=H264,payload=96\" ! ";
 
     // 2. Optimize edilmiş Jitter Buffer (GPU'ya uygun)
     pipeline += "queue max-size-buffers=2000 max-size-bytes=0 max-size-time=0 leaky=2 ! ";
-    pipeline += "rtpjitterbuffer mode=1 latency=150 drop-on-late=true ! ";
+    pipeline += "rtpjitterbuffer mode=1 latency=150 ! ";
 
     // 3. RTP Depayload ve Parse
     pipeline += "rtph264depay ! h264parse ! ";
