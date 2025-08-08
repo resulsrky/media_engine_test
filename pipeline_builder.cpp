@@ -103,7 +103,7 @@ std::string PipelineBuilder::buildSenderPipeline(const std::string& remote_ip, i
     } else { // CPU fallback: x264enc
         pipeline += "x264enc tune=zerolatency speed-preset=ultrafast bitrate=" + std::to_string(config.bitrate / 1000) +
                    " key-int-max=" + std::to_string(config.gop_size) +
-                   " bframes=0 ref=1 ! ";
+                   " bframes=0 ref=1 crf=18 ! ";
     }
 
     // 8. RTP Paketleme ve Ağ Gönderimi
@@ -136,7 +136,7 @@ std::string PipelineBuilder::buildReceiverPipeline(int local_port) {
 
     // 1. UDP Kaynağı ve Yüksek Performanslı Buffer
     pipeline = "udpsrc port=" + std::to_string(local_port) +
-               " buffer-size=524288 " + // 512KB buffer (daha makul)
+               " buffer-size=1048576 " + // 1MB buffer (ani hareketler için artırıldı)
                "caps=\"application/x-rtp,media=video,clock-rate=90000,encoding-name=H264,payload=96\" ! ";
 
     // 2. Optimize edilmiş Jitter Buffer (GPU'ya uygun)
