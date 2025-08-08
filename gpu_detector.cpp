@@ -134,13 +134,13 @@ long long GpuDetector::calculateOptimalBitrate(int width, int height, int framer
         fps_factor = 1.5;
     }
 
-    // Hareket karmaşıklığı için bir çarpan daha ekleyebiliriz (ani hareketler için biraz artırıldı)
-    double motion_factor = 1.8; // Ani hareketli sahne için biraz artırıldı
+    // Hareket karmaşıklığı için bir çarpan daha ekleyebiliriz (ani hareketler için yüksek)
+    double motion_factor = 2.5; // Ani hareketli sahne için artırıldı
 
     long long optimal_bitrate = static_cast<long long>(base_bitrate * fps_factor * motion_factor);
 
     // Sonucu 1000'lik katlara yuvarla ve makul bir alt limit koy
-    return std::max(4000000LL, optimal_bitrate * 1000); // kbps'den bps'e çevir
+    return std::max(8000000LL, optimal_bitrate * 1000); // kbps'den bps'e çevir, minimum 8 Mbps
 }
 
 OptimalSettings GpuDetector::getOptimalSettings() {

@@ -18,8 +18,8 @@ NovaCamera::NovaCamera(const std::string& local_ip, int local_port,
     config.bitrate = optimal_settings.bitrate;
     config.format = optimal_settings.format;
 
-    // GOP size (keyframe aralığı), genellikle 1-2 saniye olarak ayarlanır
-    config.gop_size = optimal_settings.framerate * 2;
+    // GOP size (keyframe aralığı), ani hareketler için daha sık keyframe
+    config.gop_size = optimal_settings.framerate * 1; // 1 saniyede bir keyframe
 
     config.enable_gpu = optimal_settings.hardware_acceleration;
     config.enable_mirror = true; // Ayna efekti açık kalsın
