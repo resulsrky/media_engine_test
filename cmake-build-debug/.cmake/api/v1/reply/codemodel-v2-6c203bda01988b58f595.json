@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -30,7 +31,8 @@
 					"name" : "NovaEngineV2",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -39,8 +41,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "nova_camera::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-nova_camera-Debug-6eeabb88f00d20fcd9fc.json",
+					"jsonFile" : "target-nova_camera-Debug-4fe53b79fd104fae1459.json",
 					"name" : "nova_camera",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "reassembly_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-reassembly_test-Debug-1d6ab6e5c2e82f09e74a.json",
+					"name" : "reassembly_test",
 					"projectIndex" : 0
 				}
 			]
@@ -55,6 +64,6 @@
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 8
+		"minor" : 3
 	}
 }

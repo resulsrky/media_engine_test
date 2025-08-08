@@ -134,8 +134,8 @@ long long GpuDetector::calculateOptimalBitrate(int width, int height, int framer
         fps_factor = 1.5;
     }
 
-    // Hareket karmaşıklığı için bir çarpan daha ekleyebiliriz (şimdilik sabit)
-    double motion_factor = 1.5; // Ortalama hareketli sahne için
+    // Hareket karmaşıklığı için bir çarpan daha ekleyebiliriz (ani hareketler için biraz artırıldı)
+    double motion_factor = 1.8; // Ani hareketli sahne için biraz artırıldı
 
     long long optimal_bitrate = static_cast<long long>(base_bitrate * fps_factor * motion_factor);
 

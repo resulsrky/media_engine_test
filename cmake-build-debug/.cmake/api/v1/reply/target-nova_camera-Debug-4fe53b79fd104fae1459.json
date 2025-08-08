@@ -56,7 +56,10 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : " -O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -D_GSTREAMER_OPTIMIZE -g -std=gnu++17 -fdiagnostics-color=always"
+					"fragment" : " -O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -D_GSTREAMER_OPTIMIZE -g"
+				},
+				{
+					"fragment" : "-std=gnu++17"
 				}
 			],
 			"includes" : 
@@ -105,6 +108,10 @@
 		[
 			{
 				"fragment" : "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -D_GSTREAMER_OPTIMIZE -g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
 				"role" : "flags"
 			},
 			{

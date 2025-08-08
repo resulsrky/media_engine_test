@@ -37,3 +37,15 @@ target_link_libraries(nova_camera ${GST_LIBRARIES})
 
 # GStreamer optimize link flags
 target_link_options(nova_camera PRIVATE ${GST_LDFLAGS})
+
+# Reassembly Engine Executable
+add_executable(reassembly_test
+    reassembly_test.cpp
+    reassembly_engine.cpp
+)
+
+# Include directories for reassembly
+target_include_directories(reassembly_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+# Link libraries for reassembly (threading support)
+target_link_libraries(reassembly_test pthread)

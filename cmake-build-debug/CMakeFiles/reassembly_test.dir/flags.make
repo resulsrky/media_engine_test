@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/include/gstreamer-1.0 -I/usr/include/orc-0.4 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+CXX_INCLUDES = -I/home/raul_cto/Documents/GitHub/media_engine_test
 
 CXX_FLAGS =  -O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -D_GSTREAMER_OPTIMIZE -g -std=gnu++17
 
